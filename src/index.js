@@ -13,13 +13,6 @@ function Square(props) {
 
 class Board extends React.Component {
 
-  constructor() {
-    super();
-      this.state = {
-       squares: Array(9).fill(null),
-       xIsNext: true,
-    };
-  }
   handleClick(i) {
     // need help understanding slice()
     const squares = this.state.squares.slice();
@@ -35,8 +28,8 @@ class Board extends React.Component {
   renderSquare(i){
     // This function is to pass props from the board to Square.
     return <Square
-      value={this.state.squares[i]}
-      onClick={() => this.handleClick(i)}
+      value={this.props.squares[i]}
+      onClick={() => this.props.onClick(i)}
     />;
   }
 
@@ -48,7 +41,7 @@ class Board extends React.Component {
         status = 'Winner: ' + winner;
       } else {
         status = 'Next Player: ' + (this.state.xIsNext ? 'X' : 'O')
-      }        
+      }
 
     return (
       <div>
@@ -74,6 +67,17 @@ class Board extends React.Component {
 }
 
 class Game extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      history: [{
+        squares: Array(9).fill(null)
+      }],
+      xIsNext: true,
+    };
+  }
+
   render() {
     return (
       <div className="game">
