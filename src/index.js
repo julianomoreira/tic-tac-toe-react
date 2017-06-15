@@ -3,24 +3,38 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Square extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      value: null,
-    }
-  }
   render() {
+    console.log(this.props);
     return (
-      <button className="square" onClick={() => this.setState({value: 'X'})}>
-        {this.state.value}
+      <button className="square" onClick={() => this.props.onClick()}>
+        {this.props.value}
       </button>
     );
   }
 }
 
 class Board extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      squares: Array(9).fill(null),
+    }
+  }
   renderSquare(i) {
-    return <Square value={i} />;
+    // passing two props to square: value and onClick
+    return <Square
+        value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)}
+     />;
+  }
+
+  handleClick(i) {
+    console.log('clicked');
+    // what's slice doing in this situation?
+    const squares = this.state.squares.slice();
+    squares[i] = 'X';
+    this.setState({squares: squares});
+    console.log(squares);
   }
 
   render() {
