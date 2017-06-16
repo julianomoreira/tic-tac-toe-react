@@ -13,15 +13,16 @@ function Square(props) {
 
 class Board extends React.Component {
 
-  renderSquare(i) {
-    // passing two props to square: value and onClick
+  renderSquare(i){
+    // This function is to pass props from the board to Square.
     return <Square
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
-     />;
+      value={this.props.squares[i]}
+      onClick={() => this.props.onClick(i)}
+    />;
   }
 
-  render() {
+  render() {    
+
     return (
       <div>
         <div className="board-row">
@@ -55,7 +56,7 @@ class Game extends React.Component {
     }
   }
 
-  handleClick(i) {    
+  handleClick(i) {
     const history = this.state.history;
     const current = history[history.length - 1];
     const squares = current.squares.slice();
